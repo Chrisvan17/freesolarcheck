@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check Your Eligibility | FreeSolarCheck.co.uk</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0A1628;color:#fff;min-height:100vh}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 5%;background:rgba(10,22,40,0.95);border-bottom:1px solid rgba(255,255,255,0.08)}
+.logo{font-size:1.4rem;font-weight:800}.logo span{color:#F4622A}
+.secure{font-size:0.85rem;color:rgba(255,255,255,0.5)}
+.container{max-width:600px;margin:60px auto;padding:0 20px}
+.progress-wrap{margin-bottom:40px}
+.progress-label{display:flex;justify-content:space-between;margin-bottom:10px;font-size:0.85rem;color:rgba(255,255,255,0.5)}
+.progress-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:#F4622A;border-radius:3px;transition:width 0.4s ease;width:25%}
+.step{display:none}
+.step.active{display:block}
+.step-tag{color:#F4622A;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+h2{font-size:1.8rem;font-weight:800;margin-bottom:8px}
+.step-sub{color:rgba(255,255,255,0.6);font-size:0.95rem;margin-bottom:32px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.option{background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px;cursor:pointer;transition:all 0.2s;text-align:center}
+.option:hover{border-color:#F4622A;background:rgba(244,98,42,0.08)}
+.option.selected{border-color:#F4622A;background:rgba(244,98,42,0.12)}
+.option-icon{font-size:2rem;margin-bottom:10px}
+.option-label{font-weight:600;font-size:0.95rem}
+.option-sub{font-size:0.8rem;color:rgba(255,255,255,0.5);margin-top:4px}
+.form-group{margin-bottom:20px}
+label{display:block;font-weight:600;margin-bottom:8px;font-size:0.9rem}
+input{width:100%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);border-radius:8px;padding:14px 16px;color:#fff;font-size:1rem;font-family:'Inter',sans-serif;transition:border 0.2s}
+input:focus{outline:none;border-color:#F4622A}
+input::placeholder{color:rgba(255,255,255,0.3)}
+.btn{width:100%;background:#F4622A;color:#fff;border:none;padding:18px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:12px;transition:background 0.2s}
+.btn:hover{background:#d94f20}
+.btn-back{width:100%;background:transparent;border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);padding:14px;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;margin-top:10px;transition:all 0.2s}
+.btn-back:hover{border-color:rgba(255,255,255,0.3)}
+.trust-note{text-align:center;font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:16px}
+.success{display:none;text-align:center;padding:60px 20px}
+.success-icon{width:80px;height:80px;background:rgba(244,98,42,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2rem}
+.success h2{font-size:2rem;font-weight:800;margin-bottom:12px}
+.success p{color:rgba(255,255,255,0.6);line-height:1.7;max-width:440px;margin:0 auto}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Free<span>Solar</span>Check</div>
+  <div class="secure">Secure &amp; Confidential</div>
+</nav>
+
+<div class="container">
+  <div class="progress-wrap">
+    <div class="progress-label"><span id="stepLabel">Step 1 of 4</span><span id="stepPct">25%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="step active" id="step1">
+    <div class="step-tag">Step 1 of 4</div>
+    <h2>Do you own or rent your home?</h2>
+    <p class="step-sub">Grant eligibility depends on your tenure type.</p>
+    <div class="options">
+      <div class="option" onclick="select(this,'tenure','own')">
+        <div class="option-icon">🏠</div>
+        <div class="option-label">I Own My Home</div>
+        <div class="option-sub">Freehold or mortgage</div>
+      </div>
+      <div class="option" onclick="select(this,'tenure','rent-private')">
+        <div class="option-icon">🔑</div>
+        <div class="option-label">Private Tenant</div>
+        <div class="option-sub">Renting privately</div>
+      </div>
+      <div class="option" onclick="select(this,'tenure','rent-social')">
+        <div class="option-icon">🏢</div>
+        <div class="option-label">Social Housing</div>
+        <div class="option-sub">Council or housing association</div>
+      </div>
+      <div class="option" onclick="select(this,'tenure','other')">
+        <div class="option-icon">📋</div>
+        <div class="option-label">Other</div>
+        <div class="option-sub">Shared ownership etc.</div>
+      </div>
+    </div>
+    <button class="btn" onclick="nextStep(2)" style="margin-top:24px">Continue</button>
+    <p class="trust-note">100% free check - no credit check required</p>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step" id="step2">
+    <div class="step-tag">Step 2 of 4</div>
+    <h2>What type of property do you live in?</h2>
+    <p class="step-sub">This helps us determine the right installation type for your home.</p>
+    <div class="options">
+      <div class="option" onclick="select(this,'property','detached')">
+        <div class="option-icon">🏡</div>
+        <div class="option-label">Detached</div>
+      </div>
+      <div class="option" onclick="select(this,'property','semi')">
+        <div class="option-icon">🏘</div>
+        <div class="option-label">Semi-Detached</div>
+      </div>
+      <div class="option" onclick="select(this,'property','terraced')">
+        <div class="option-icon">🏚</div>
+        <div class="option-label">Terraced</div>
+      </div>
+      <div class="option" onclick="select(this,'property','flat')">
+        <div class="option-icon">🏬</div>
+        <div class="option-label">Flat / Apartment</div>
+      </div>
+    </div>
+    <button class="btn" onclick="nextStep(3)" style="margin-top:24px">Continue</button>
+    <button class="btn-back" onclick="nextStep(1)">Back</button>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step" id="step3">
+    <div class="step-tag">Step 3 of 4</div>
+    <h2>Do you receive any benefits?</h2>
+    <p class="step-sub">Receiving certain benefits may increase your grant entitlement.</p>
+    <div class="options">
+      <div class="option" onclick="select(this,'benefits','yes-uc')">
+        <div class="option-icon">✅</div>
+        <div class="option-label">Universal Credit</div>
+      </div>
+      <div class="option" onclick="select(this,'benefits','yes-pip')">
+        <div class="option-icon">✅</div>
+        <div class="option-label">PIP / DLA</div>
+      </div>
+      <div class="option" onclick="select(this,'benefits','yes-other')">
+        <div class="option-icon">✅</div>
+        <div class="option-label">Other Benefits</div>
+      </div>
+      <div class="option" onclick="select(this,'benefits','no')">
+        <div class="option-icon">❌</div>
+        <div class="option-label">No Benefits</div>
+      </div>
+    </div>
+    <button class="btn" onclick="nextStep(4)" style="margin-top:24px">Continue</button>
+    <button class="btn-back" onclick="nextStep(2)">Back</button>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step" id="step4">
+    <div class="step-tag">Step 4 of 4</div>
+    <h2>Where should we send your results?</h2>
+    <p class="step-sub">A certified installer in your area will contact you with your eligibility results and a free quote.</p>
+    <form id="leadForm" onsubmit="submitForm(event)">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="name" placeholder="Your full name" required>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" name="phone" placeholder="07700 000000" required>
+      </div>
+      <div class="form-group">
+        <label>Postcode</label>
+        <input type="text" name="postcode" placeholder="e.g. LS1 1AB" required>
+      </div>
+      <button type="submit" class="btn">Check My Eligibility Now</button>
+      <button type="button" class="btn-back" onclick="nextStep(3)">Back</button>
+    </form>
+    <p class="trust-note">By submitting you agree to be contacted by a certified installer. No spam, ever.</p>
+  </div>
+
+  <!-- Success -->
+  <div class="success" id="successMsg">
+    <div class="success-icon">✅</div>
+    <h2>You're In The System!</h2>
+    <p>Great news - based on your answers, you are likely to qualify. A certified local installer will call you within 24 hours to confirm your eligibility and arrange a free home survey.</p>
+    <p style="margin-top:20px;color:rgba(255,255,255,0.4);font-size:0.85rem">Keep an eye on your phone and email inbox.</p>
+  </div>
+</div>
+
+<script>
+const answers = {};
+function select(el, key, val) {
+  document.querySelectorAll(`[onclick*="'${key}'"]`).forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[key] = val;
+}
+function nextStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('step' + n);
+  if (el) el.classList.add('active');
+  const pct = (n / 4) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('stepLabel').textContent = 'Step ' + n + ' of 4';
+  document.getElementById('stepPct').textContent = Math.round(pct) + '%';
+  window.scrollTo(0, 0);
+}
+function submitForm(e) {
+  e.preventDefault();
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('successMsg').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+</script>
+
+<script>
+(function() {
+  var SUBMIT_URL = "http://os-services:80/api/v1/native-tools/forms/2a3c3047-510a-4b86-9ae7-6a34822bab8b/submit";
+  document.querySelectorAll("form").forEach(function(form) {
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      var formData = new FormData(form);
+      var data = {};
+      formData.forEach(function(value, key) { data[key] = value; });
+      var btn = form.querySelector('[type="submit"]');
+      if (btn) btn.disabled = true;
+      fetch(SUBMIT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      }).then(function(resp) {
+        if (resp.ok) {
+          form.innerHTML = '<p style="padding:20px;text-align:center;font-size:18px;">Thank you for your submission!</p>';
+        } else {
+          alert("Submission failed. Please try again.");
+          if (btn) btn.disabled = false;
+        }
+      }).catch(function() {
+        alert("Submission failed. Please try again.");
+        if (btn) btn.disabled = false;
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
