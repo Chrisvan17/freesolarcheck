@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Solar Check | Find Out If You Qualify For Free Solar Panels</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0A1628;color:#fff}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 5%;background:rgba(10,22,40,0.95);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,0.08)}
+.logo{font-size:1.4rem;font-weight:800;color:#fff}
+.logo span{color:#F4622A}
+.nav-cta{background:#F4622A;color:#fff;padding:10px 24px;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem}
+.hero{padding:80px 5% 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto}
+.hero-badge{display:inline-block;background:rgba(244,98,42,0.15);border:1px solid rgba(244,98,42,0.4);color:#F4622A;padding:6px 16px;border-radius:20px;font-size:0.8rem;font-weight:600;margin-bottom:20px;text-transform:uppercase;letter-spacing:0.5px}
+h1{font-size:3.2rem;font-weight:900;line-height:1.1;margin-bottom:20px}
+h1 span{color:#F4622A}
+.hero-sub{font-size:1.1rem;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:32px}
+.hero-cta{display:inline-block;background:#F4622A;color:#fff;padding:18px 40px;border-radius:8px;text-decoration:none;font-weight:700;font-size:1.1rem;transition:background 0.2s}
+.hero-cta:hover{background:#d94f20}
+.trust-row{display:flex;gap:24px;margin-top:24px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:rgba(255,255,255,0.6)}
+.trust-dot{width:8px;height:8px;background:#F4622A;border-radius:50%}
+.stats-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.stat{text-align:center;padding:20px;background:rgba(244,98,42,0.08);border-radius:10px;border:1px solid rgba(244,98,42,0.2)}
+.stat-num{font-size:2.2rem;font-weight:900;color:#F4622A;display:block}
+.stat-label{font-size:0.8rem;color:rgba(255,255,255,0.6);margin-top:4px}
+.stats-strip{background:#F4622A;padding:20px 5%;display:flex;justify-content:center;gap:60px;flex-wrap:wrap}
+.strip-item{text-align:center;color:#fff}
+.strip-num{font-size:1.8rem;font-weight:900}
+.strip-label{font-size:0.8rem;opacity:0.85}
+.section{padding:80px 5%;max-width:1200px;margin:0 auto}
+.section-label{color:#F4622A;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.section-title{font-size:2.4rem;font-weight:800;margin-bottom:16px}
+.section-sub{color:rgba(255,255,255,0.6);font-size:1rem;line-height:1.7;max-width:600px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
+.step{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:32px;position:relative}
+.step-num{width:44px;height:44px;background:#F4622A;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin-bottom:20px}
+.step h3{font-size:1.1rem;font-weight:700;margin-bottom:10px}
+.step p{color:rgba(255,255,255,0.6);font-size:0.9rem;line-height:1.6}
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.tcard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:28px}
+.stars{color:#F4622A;font-size:1.1rem;margin-bottom:12px}
+.tcard p{color:rgba(255,255,255,0.75);font-size:0.9rem;line-height:1.6;margin-bottom:16px}
+.tname{font-weight:700;font-size:0.85rem}
+.tloc{color:rgba(255,255,255,0.4);font-size:0.8rem}
+.cta-section{background:rgba(244,98,42,0.08);border:1px solid rgba(244,98,42,0.2);border-radius:20px;padding:60px;text-align:center;margin:0 5% 80px}
+.cta-section h2{font-size:2.4rem;font-weight:800;margin-bottom:16px}
+.cta-section p{color:rgba(255,255,255,0.7);margin-bottom:32px;font-size:1rem}
+.cta-btn{display:inline-block;background:#F4622A;color:#fff;padding:18px 48px;border-radius:8px;text-decoration:none;font-weight:700;font-size:1.1rem}
+footer{border-top:1px solid rgba(255,255,255,0.08);padding:32px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:1.1rem;font-weight:800}.footer-logo span{color:#F4622A}
+footer p{color:rgba(255,255,255,0.4);font-size:0.8rem}
+@media(max-width:768px){.hero{grid-template-columns:1fr;padding:40px 5%}h1{font-size:2.2rem}.steps,.testimonials{grid-template-columns:1fr}.stats-card{grid-template-columns:1fr 1fr}.stats-strip{gap:30px}.cta-section{padding:40px 24px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Free<span>Solar</span>Check</div>
+  <a href="check.html" class="nav-cta">Check Eligibility</a>
+</nav>
+
+<section style="max-width:1200px;margin:0 auto">
+  <div class="hero">
+    <div>
+      <div class="hero-badge">100% Free - No Obligation</div>
+      <h1>Find Out If You Qualify For <span>Free Solar Panels</span></h1>
+      <p class="hero-sub">Thousands of UK homeowners are receiving free solar panel installations through government-backed grant schemes. Check your eligibility in under 60 seconds.</p>
+      <a href="check.html" class="hero-cta">Check My Eligibility Now</a>
+      <div class="trust-row">
+        <div class="trust-item"><div class="trust-dot"></div>No credit checks</div>
+        <div class="trust-item"><div class="trust-dot"></div>100% free service</div>
+        <div class="trust-item"><div class="trust-dot"></div>MCS certified installers</div>
+      </div>
+    </div>
+    <div class="stats-card">
+      <div class="stat"><span class="stat-num">£1,400</span><div class="stat-label">Average annual energy saving</div></div>
+      <div class="stat"><span class="stat-num">£10k</span><div class="stat-label">Maximum grant available</div></div>
+      <div class="stat"><span class="stat-num">1.2M</span><div class="stat-label">UK homes already benefiting</div></div>
+      <div class="stat"><span class="stat-num">60s</span><div class="stat-label">To check your eligibility</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="strip-item"><div class="strip-num">£0</div><div class="strip-label">Installation cost if eligible</div></div>
+  <div class="strip-item"><div class="strip-num">25yr</div><div class="strip-label">Panel lifespan guarantee</div></div>
+  <div class="strip-item"><div class="strip-num">4,800+</div><div class="strip-label">Homes checked this month</div></div>
+  <div class="strip-item"><div class="strip-num">72%</div><div class="strip-label">Applicants qualify</div></div>
+</div>
+
+<div class="section">
+  <div class="section-label">How It Works</div>
+  <div class="section-title">Three Steps To Free Solar</div>
+  <p class="section-sub">Our simple process connects you with MCS-certified installers who handle everything from survey to installation.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Check Eligibility</h3>
+      <p>Answer 4 simple questions about your property and household. Takes under 60 seconds and is completely free.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Get Matched</h3>
+      <p>We match you with up to 3 MCS-certified local installers who will contact you to arrange a free home survey.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Get Installed</h3>
+      <p>If you qualify for a grant, your panels are installed completely free. Start saving on your energy bills immediately.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top:0">
+  <div class="section-label">Real Customers</div>
+  <div class="section-title">What Our Customers Say</div>
+  <div class="testimonials">
+    <div class="tcard">
+      <div class="stars">★★★★★</div>
+      <p>"I had no idea I could get free solar panels. The whole process took less than a week from checking eligibility to having them installed. My bills have dropped massively."</p>
+      <div class="tname">Sarah M.</div>
+      <div class="tloc">Leeds, Yorkshire</div>
+    </div>
+    <div class="tcard">
+      <div class="stars">★★★★★</div>
+      <p>"Genuinely thought this was too good to be true. It wasn't. Free installation, professional team, and I'm now generating my own electricity. Brilliant service."</p>
+      <div class="tname">David K.</div>
+      <div class="tloc">Manchester</div>
+    </div>
+    <div class="tcard">
+      <div class="stars">★★★★★</div>
+      <p>"The check took about 45 seconds. Within 2 days I had a surveyor at my door. Panels went up the following week. Saving around £120 a month already."</p>
+      <div class="tname">Janet R.</div>
+      <div class="tloc">Birmingham</div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Don't Miss Out On Your Free Solar Grant</h2>
+  <p>Grant funding is limited and allocated on a first-come, first-served basis. Check your eligibility today before your area's allocation runs out.</p>
+  <a href="check.html" class="cta-btn">Check My Eligibility - It's Free</a>
+</div>
+
+<footer>
+  <div class="footer-logo">Free<span>Solar</span>Check</div>
+  <p>freesolarcheck.co.uk | Connecting UK homeowners with certified solar installers</p>
+  <p style="color:rgba(255,255,255,0.3);font-size:0.75rem">This is a lead generation service. We are not an installer or grant provider.</p>
+</footer>
+</body>
+</html>
