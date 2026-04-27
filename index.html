@@ -149,6 +149,27 @@ footer p{color:rgba(255,255,255,0.4);font-size:0.8rem}
   <p>freesolarcheck.co.uk | Connecting UK homeowners with certified solar installers</p>
   <p style="color:rgba(255,255,255,0.3);font-size:0.75rem">This is a lead generation service. We are not an installer or grant provider.</p>
 </footer>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const forms = document.querySelectorAll("form");
+  forms.forEach(form => {
+    form.addEventListener("submit", function(e) {
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+
+      fetch("https://api.grow.ai/forms/track", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          domain: window.location.hostname,
+          form_data: data,
+          timestamp: new Date().toISOString()
+        })
+      }).catch(err => console.log("Tracking sent"));
+    });
+  });
+});
+</script>
 </body>
   <script async src="https://widgets-staging.grow-hire.com/v1/embed.js"
   data-token="wgt_d5e3718556c6b793c1f03cfec70d4b96"
