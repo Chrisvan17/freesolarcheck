@@ -203,37 +203,6 @@ function submitForm(e) {
   window.scrollTo(0, 0);
 }
 </script>
-
-<script>
-(function() {
-  var SUBMIT_URL = "http://os-services:80/api/v1/native-tools/forms/2a3c3047-510a-4b86-9ae7-6a34822bab8b/submit";
-  document.querySelectorAll("form").forEach(function(form) {
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      var formData = new FormData(form);
-      var data = {};
-      formData.forEach(function(value, key) { data[key] = value; });
-      var btn = form.querySelector('[type="submit"]');
-      if (btn) btn.disabled = true;
-      fetch(SUBMIT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      }).then(function(resp) {
-        if (resp.ok) {
-          form.innerHTML = '<p style="padding:20px;text-align:center;font-size:18px;">Thank you for your submission!</p>';
-        } else {
-          alert("Submission failed. Please try again.");
-          if (btn) btn.disabled = false;
-        }
-      }).catch(function() {
-        alert("Submission failed. Please try again.");
-        if (btn) btn.disabled = false;
-      });
-    });
-  });
-})();
-</script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const forms = document.querySelectorAll("form");
@@ -255,36 +224,40 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 </script>
-
-<script>
-(function() {
-  var SUBMIT_URL = "http://os-services:80/api/v1/native-tools/forms/8212c995-96e9-4b98-86ac-934df5be506e/submit";
-  document.querySelectorAll("form").forEach(function(form) {
-    form.addEventListener("submit", function(e) {
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.querySelector('form') || document.getElementById('lead-form');
+  
+  if (form) {
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
+      
       var formData = new FormData(form);
       var data = {};
-      formData.forEach(function(value, key) { data[key] = value; });
-      var btn = form.querySelector('[type="submit"]');
-      if (btn) btn.disabled = true;
-      fetch(SUBMIT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      }).then(function(resp) {
-        if (resp.ok) {
-          form.innerHTML = '<p style="padding:20px;text-align:center;font-size:18px;">Thank you for your submission!</p>';
+      formData.forEach(function(value, key) {
+        data[key] = value;
+      });
+      
+      fetch('https://script.google.com/macros/s/AKfycbyc-RbS4EyZ3s9QaZRn-ZfyV-MBaT6PLhsAVE17XBJ4-_cbyd5nEzPkah_zpgsqWsHSjA/exec', {
+        method: 'POST',
+        body: new URLSearchParams(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result.success) {
+          alert('Thank you! Your submission has been received.');
+          form.reset();
         } else {
-          alert("Submission failed. Please try again.");
-          if (btn) btn.disabled = false;
+          alert('Something went wrong. Please try again.');
         }
-      }).catch(function() {
-        alert("Submission failed. Please try again.");
-        if (btn) btn.disabled = false;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Submission failed. Please try again.');
       });
     });
-  });
-})();
+  }
+});
 </script>
 </body>
 </html>
