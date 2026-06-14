@@ -147,6 +147,10 @@ input::placeholder{color:rgba(255,255,255,0.3)}
     <h2>Where should we send your results?</h2>
     <p class="step-sub">A certified installer in your area will contact you with your eligibility results and a free quote.</p>
     <form id="leadForm" onsubmit="submitForm(event)">
+  <!-- Hidden fields to capture wizard answers -->
+  <input type="hidden" name="tenure" id="hidden-tenure">
+  <input type="hidden" name="property" id="hidden-property">
+  <input type="hidden" name="benefits" id="hidden-benefits">
       <div class="form-group">
         <label>Full Name</label>
         <input type="text" name="name" placeholder="Your full name" required>
@@ -197,10 +201,40 @@ function nextStep(n) {
 }
 function submitForm(e) {
   e.preventDefault();
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  document.getElementById('progressFill').style.width = '100%';
-  document.getElementById('successMsg').style.display = 'block';
-  window.scrollTo(0, 0);
+  
+  // Copy wizard answers into hidden form fields so they get submitted
+  if (typeof answers !== 'undefined') {
+    document.getElementById('hidden-tenure').value = answers.tenure || '';
+    document.getElementById('hidden-property').value = answers.property || '';
+    document.getElementById('hidden-benefits').value = answers.benefits || '';
+  }
+  
+  // Build form data including hidden fields
+  var form = document.getElementById('leadForm');
+  var formData = new FormData(form);
+  var data = {};
+  formData.forEach(function(value, key) {
+    data[key] = value;
+  });
+  
+  // Send to Google Apps Script
+  fetch('https://script.google.com/macros/s/AKfycbyc-RbS4EyZ3s9QaZRn-ZfyV-MBaT6PLhsAVE17XBJ4-_cbyd5nEzPkah_zpgsqWsHSjA/exec', {
+    method: 'POST',
+    body: new URLSearchParams(data)
+  })
+  .then(function(response) { return response.json(); })
+  .then(function(result) {
+    if (result.success) {
+      document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('successMsg').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+  })
+  .catch(function(error) {
+    console.error('Error:', error);
+    alert('Submission failed. Please try again.');
+  });
 }
 </script>
 <script>
