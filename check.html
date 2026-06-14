@@ -1,297 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Check Your Eligibility | FreeSolarCheck.co.uk</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#0A1628;color:#fff;min-height:100vh}
-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 5%;background:rgba(10,22,40,0.95);border-bottom:1px solid rgba(255,255,255,0.08)}
-.logo{font-size:1.4rem;font-weight:800}.logo span{color:#F4622A}
-.secure{font-size:0.85rem;color:rgba(255,255,255,0.5)}
-.container{max-width:600px;margin:60px auto;padding:0 20px}
-.progress-wrap{margin-bottom:40px}
-.progress-label{display:flex;justify-content:space-between;margin-bottom:10px;font-size:0.85rem;color:rgba(255,255,255,0.5)}
-.progress-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
-.progress-fill{height:100%;background:#F4622A;border-radius:3px;transition:width 0.4s ease;width:25%}
-.step{display:none}
-.step.active{display:block}
-.step-tag{color:#F4622A;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
-h2{font-size:1.8rem;font-weight:800;margin-bottom:8px}
-.step-sub{color:rgba(255,255,255,0.6);font-size:0.95rem;margin-bottom:32px}
-.options{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.option{background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px;cursor:pointer;transition:all 0.2s;text-align:center}
-.option:hover{border-color:#F4622A;background:rgba(244,98,42,0.08)}
-.option.selected{border-color:#F4622A;background:rgba(244,98,42,0.12)}
-.option-icon{font-size:2rem;margin-bottom:10px}
-.option-label{font-weight:600;font-size:0.95rem}
-.option-sub{font-size:0.8rem;color:rgba(255,255,255,0.5);margin-top:4px}
-.form-group{margin-bottom:20px}
-label{display:block;font-weight:600;margin-bottom:8px;font-size:0.9rem}
-input{width:100%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);border-radius:8px;padding:14px 16px;color:#fff;font-size:1rem;font-family:'Inter',sans-serif;transition:border 0.2s}
-input:focus{outline:none;border-color:#F4622A}
-input::placeholder{color:rgba(255,255,255,0.3)}
-.btn{width:100%;background:#F4622A;color:#fff;border:none;padding:18px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:12px;transition:background 0.2s}
-.btn:hover{background:#d94f20}
-.btn-back{width:100%;background:transparent;border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);padding:14px;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;margin-top:10px;transition:all 0.2s}
-.btn-back:hover{border-color:rgba(255,255,255,0.3)}
-.trust-note{text-align:center;font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:16px}
-.success{display:none;text-align:center;padding:60px 20px}
-.success-icon{width:80px;height:80px;background:rgba(244,98,42,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2rem}
-.success h2{font-size:2rem;font-weight:800;margin-bottom:12px}
-.success p{color:rgba(255,255,255,0.6);line-height:1.7;max-width:440px;margin:0 auto}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Solar Panel Grant Check - FreeSolarCheck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .step { display: none; }
+        .step.active { display: block; }
+        .progress-bar { transition: width 0.5s ease-in-out; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up { animation: fadeInUp 0.6s ease-out; }
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+    </style>
 </head>
-<body>
-<nav>
-  <div class="logo">Free<span>Solar</span>Check</div>
-  <div class="secure">Secure &amp; Confidential</div>
-</nav>
+<body class="bg-gradient-to-br from-slate-50 via-white to-emerald-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                </div>
+                <span class="font-bold text-xl text-gray-900">FreeSolarCheck</span>
+            </div>
+            <div class="text-sm text-gray-500 hidden sm:block">Solar Panel Grant Eligibility</div>
+        </div>
+    </header>
 
-<div class="container">
-  <div class="progress-wrap">
-    <div class="progress-label"><span id="stepLabel">Step 1 of 4</span><span id="stepPct">25%</span></div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  </div>
+    <!-- Main Content -->
+    <main class="max-w-2xl mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <div class="text-center mb-8 animate-fade-in-up">
+            <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                100% Free Check - No Obligation
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3 leading-tight">
+                Check if You Qualify for a <span class="text-emerald-600">Free Solar Panel Grant</span>
+            </h1>
+            <p class="text-gray-600 text-lg">Government-backed scheme. Check eligibility in under 60 seconds.</p>
+        </div>
 
-  <!-- Step 1 -->
-  <div class="step active" id="step1">
-    <div class="step-tag">Step 1 of 4</div>
-    <h2>Do you own or rent your home?</h2>
-    <p class="step-sub">Grant eligibility depends on your tenure type.</p>
-    <div class="options">
-      <div class="option" onclick="select(this,'tenure','own')">
-        <div class="option-icon">🏠</div>
-        <div class="option-label">I Own My Home</div>
-        <div class="option-sub">Freehold or mortgage</div>
-      </div>
-      <div class="option" onclick="select(this,'tenure','rent-private')">
-        <div class="option-icon">🔑</div>
-        <div class="option-label">Private Tenant</div>
-        <div class="option-sub">Renting privately</div>
-      </div>
-      <div class="option" onclick="select(this,'tenure','rent-social')">
-        <div class="option-icon">🏢</div>
-        <div class="option-label">Social Housing</div>
-        <div class="option-sub">Council or housing association</div>
-      </div>
-      <div class="option" onclick="select(this,'tenure','other')">
-        <div class="option-icon">📋</div>
-        <div class="option-label">Other</div>
-        <div class="option-sub">Shared ownership etc.</div>
-      </div>
-    </div>
-    <button class="btn" onclick="nextStep(2)" style="margin-top:24px">Continue</button>
-    <p class="trust-note">100% free check - no credit check required</p>
-  </div>
+        <!-- Progress Bar -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden mb-6">
+            <div class="px-6 py-4 border-b border-gray-100">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-gray-700">Progress</span>
+                    <span class="text-sm font-bold text-emerald-600" id="progressText">Step 1 of 4</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-2.5">
+                    <div class="progress-bar bg-emerald-500 h-2.5 rounded-full" id="progressFill" style="width: 25%"></div>
+                </div>
+            </div>
 
-  <!-- Step 2 -->
-  <div class="step" id="step2">
-    <div class="step-tag">Step 2 of 4</div>
-    <h2>What type of property do you live in?</h2>
-    <p class="step-sub">This helps us determine the right installation type for your home.</p>
-    <div class="options">
-      <div class="option" onclick="select(this,'property','detached')">
-        <div class="option-icon">🏡</div>
-        <div class="option-label">Detached</div>
-      </div>
-      <div class="option" onclick="select(this,'property','semi')">
-        <div class="option-icon">🏘</div>
-        <div class="option-label">Semi-Detached</div>
-      </div>
-      <div class="option" onclick="select(this,'property','terraced')">
-        <div class="option-icon">🏚</div>
-        <div class="option-label">Terraced</div>
-      </div>
-      <div class="option" onclick="select(this,'property','flat')">
-        <div class="option-icon">🏬</div>
-        <div class="option-label">Flat / Apartment</div>
-      </div>
-    </div>
-    <button class="btn" onclick="nextStep(3)" style="margin-top:24px">Continue</button>
-    <button class="btn-back" onclick="nextStep(1)">Back</button>
-  </div>
+            <!-- Form -->
+            <div class="p-6">
+                <form id="leadForm" onsubmit="submitForm(event)" data-os-form-id="3d140122-ef61-4a02-8208-46c3a46969d8" data-os-submit-url="https://api.grow-os.ai/api/v1/native-tools/forms/3d140122-ef61-4a02-8208-46c3a46969d8/submit">
+                    <input type="hidden" name="tenure" id="hidden-tenure">
+                    <input type="hidden" name="property" id="hidden-property">
+                    <input type="hidden" name="benefits" id="hidden-benefits">
 
-  <!-- Step 3 -->
-  <div class="step" id="step3">
-    <div class="step-tag">Step 3 of 4</div>
-    <h2>Do you receive any benefits?</h2>
-    <p class="step-sub">Receiving certain benefits may increase your grant entitlement.</p>
-    <div class="options">
-      <div class="option" onclick="select(this,'benefits','yes-uc')">
-        <div class="option-icon">✅</div>
-        <div class="option-label">Universal Credit</div>
-      </div>
-      <div class="option" onclick="select(this,'benefits','yes-pip')">
-        <div class="option-icon">✅</div>
-        <div class="option-label">PIP / DLA</div>
-      </div>
-      <div class="option" onclick="select(this,'benefits','yes-other')">
-        <div class="option-icon">✅</div>
-        <div class="option-label">Other Benefits</div>
-      </div>
-      <div class="option" onclick="select(this,'benefits','no')">
-        <div class="option-icon">❌</div>
-        <div class="option-label">No Benefits</div>
-      </div>
-    </div>
-    <button class="btn" onclick="nextStep(4)" style="margin-top:24px">Continue</button>
-    <button class="btn-back" onclick="nextStep(2)">Back</button>
-  </div>
+                    <!-- Step 1: Tenure -->
+                    <div class="step active" id="step1">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2">Do you own or rent your property?</h2>
+                        <p class="text-gray-500 mb-6">This helps us determine which grants you may qualify for.</p>
+                        <div class="space-y-3">
+                            <button type="button" onclick="selectTenure('own')" class="w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50 transition-all group">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+                                        <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-gray-900">I Own My Property</div>
+                                        <div class="text-sm text-gray-500">Freehold or leasehold</div>
+                                    </div>
+                                </div>
+                            </button>
+                            <button type="button" onclick="selectTenure('rent')" class="w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50 transition-all group">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-gray-900">I Rent My Property</div>
+                                        <div class="text-sm text-gray-500">Private or council tenant</div>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
 
-  <!-- Step 4 -->
-  <div class="step" id="step4">
-    <div class="step-tag">Step 4 of 4</div>
-    <h2>Where should we send your results?</h2>
-    <p class="step-sub">A certified installer in your area will contact you with your eligibility results and a free quote.</p>
-    <form id="leadForm" onsubmit="submitForm(event)">
-  <!-- Hidden fields to capture wizard answers -->
-  <input type="hidden" name="tenure" id="hidden-tenure">
-  <input type="hidden" name="property" id="hidden-property">
-  <input type="hidden" name="benefits" id="hidden-benefits">
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" name="name" placeholder="Your full name" required>
-      </div>
-      <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" name="email" placeholder="your@email.com" required>
-      </div>
-      <div class="form-group">
-        <label>Phone Number</label>
-        <input type="tel" name="phone" placeholder="07700 000000" required>
-      </div>
-      <div class="form-group">
-        <label>Postcode</label>
-        <input type="text" name="postcode" placeholder="e.g. LS1 1AB" required>
-      </div>
-      <button type="submit" class="btn">Check My Eligibility Now</button>
-      <button type="button" class="btn-back" onclick="nextStep(3)">Back</button>
-    </form>
-    <p class="trust-note">By submitting you agree to be contacted by a certified installer. No spam, ever.</p>
-  </div>
+                    <!-- Step 2: Property Type -->
+                    <div class="step" id="step2">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2">What type of property do you live in?</h2>
+                        <p class="text-gray-500 mb-6">Different property types qualify for different grant amounts.</p>
+                        <div class="space-y-3">
+                            <button type="button" onclick="selectProperty('detached')" class="w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50 transition-all group">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors"><svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div>
+                                    <div><div class="font-semibold text-gray-900">Detached House</div><div class="text-sm text-gray-500">Standalone property</div></div>
+                                </div>
+                            </button>
+                            <button type="button" onclick="selectProperty('semi')" class="w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50 transition-all group">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors"><svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>
+                                    <div><div class="font-semibold text-gray-900">Semi-Detached</div><div class="text-sm text-gray-500">Joined to one neighbour</div></div>
+                                </div>
+                            </button>
+                            <button type="button" onclick="selectProperty('terraced')" class="w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50 transition-all group">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors"><svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg></div>
+                                    <div><div class="font-semibold text-gray-900">Terraced House</div><div class="text-sm text-gray-500">Row of joined properties</div></div>
+                                </div>
+                            </button>
+                            <button type="button" onclick="selectProperty('flat')" class="w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50 transition-all group">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors"><svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>
+                                    <div><div class="font-semibold text-gray-900">Flat / Apartment</div><div class="text-sm text-gray-500">Upper or ground floor</div></div>
+                                </div>
+                            </button>
+                        </div>
+                        <button type="button" onclick="prevStep(1)" class="mt-4 text-gray-500 hover:text-gray-700 text-sm font-medium">Back</button>
+                    </div>
 
-  <!-- Success -->
-  <div class="success" id="successMsg">
-    <div class="success-icon">✅</div>
-    <h2>You're In The System!</h2>
-    <p>Great news - based on your answers, you are likely to qualify. A certified local installer will call you within 24 hours to confirm your eligibility and arrange a free home survey.</p>
-    <p style="margin-top:20px;color:rgba(255,255,255,0.4);font-size:0.85rem">Keep an eye on your phone and email inbox.</p>
-  </div>
-</div>
+                    <!-- Step 3: Benefits -->
+                    <div class="step" id="step3">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2">Do you receive any benefits?</h2>
+                        <p class="text-gray-500 mb-6">Some benefits can increase your grant eligibility.</p>
+                        <div class="space-y-3">
+                            <button type="button" onclick="selectBenefits('uc')" class="w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50 transition-all group">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors"><svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                                    <div><div class="font-semibold text-gray-900">Universal Credit</div></div>
+                                </div>
+                            </button>
+                            <button type="button" onclick="selectBenefits('pip')" class="w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50 transition-all group">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors"><svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                                    <div><div class="font-semibold text-gray-900">Personal Independence Payment (PIP)</div></div>
+                                </div>
+                            </button>
+                            <button type="button" onclick="selectBenefits('other')" class="w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50 transition-all group">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors"><svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div>
+                                    <div><div class="font-semibold text-gray-900">Other Benefits</div></div>
+                                </div>
+                            </button>
+                            <button type="button" onclick="selectBenefits('none')" class="w-full p-4 text-left border-2 border-gray-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50 transition-all group">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                                    <div><div class="font-semibold text-gray-900">No Benefits</div></div>
+                                </div>
+                            </button>
+                        </div>
+                        <button type="button" onclick="prevStep(2)" class="mt-4 text-gray-500 hover:text-gray-700 text-sm font-medium">Back</button>
+                    </div>
 
-<script>
-const answers = {};
-function select(el, key, val) {
-  document.querySelectorAll(`[onclick*="'${key}'"]`).forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-  answers[key] = val;
-}
-function nextStep(n) {
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById('step' + n);
-  if (el) el.classList.add('active');
-  const pct = (n / 4) * 100;
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('stepLabel').textContent = 'Step ' + n + ' of 4';
-  document.getElementById('stepPct').textContent = Math.round(pct) + '%';
-  window.scrollTo(0, 0);
-}
-function submitForm(e) {
-  e.preventDefault();
-  
-  // Copy wizard answers into hidden form fields so they get submitted
-  if (typeof answers !== 'undefined') {
-    document.getElementById('hidden-tenure').value = answers.tenure || '';
-    document.getElementById('hidden-property').value = answers.property || '';
-    document.getElementById('hidden-benefits').value = answers.benefits || '';
-  }
-  
-  // Build form data including hidden fields
-  var form = document.getElementById('leadForm');
-  var formData = new FormData(form);
-  var data = {};
-  formData.forEach(function(value, key) {
-    data[key] = value;
-  });
-  
-  // Send to Google Apps Script
-  fetch('https://script.google.com/macros/s/AKfycbyc-RbS4EyZ3s9QaZRn-ZfyV-MBaT6PLhsAVE17XBJ4-_cbyd5nEzPkah_zpgsqWsHSjA/exec', {
-    method: 'POST',
-    body: new URLSearchParams(data)
-  })
-  .then(function(response) { return response.json(); })
-  .then(function(result) {
-    if (result.success) {
-      document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
-      document.getElementById('progressFill').style.width = '100%';
-      document.getElementById('successMsg').style.display = 'block';
-      window.scrollTo(0, 0);
-    }
-  })
-  .catch(function(error) {
-    console.error('Error:', error);
-    alert('Submission failed. Please try again.');
-  });
-}
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const forms = document.querySelectorAll("form");
-  forms.forEach(form => {
+                    <!-- Step 4: Contact Details -->
+                    <div class="step" id="step4">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2">Enter your contact details</h2>
+                        <p class="text-gray-500 mb-6">We will use this to contact you about your eligibility.</p>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" name="name" required class="w-full p-3 rounded-lg border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none" placeholder="John Smith">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" name="email" required class="w-full p-3 rounded-lg border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none" placeholder="john@example.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" name="phone" required class="w-full p-3 rounded-lg border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none" placeholder="07XXX XXXXXX">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Postcode</label>
+                                <input type="text" name="postcode" required class="w-full p-3 rounded-lg border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 focus:outline-none uppercase" placeholder="SW1A 1AA">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full mt-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98]">
+                            Check My Eligibility
+                        </button>
+                        <button type="button" onclick="prevStep(3)" class="mt-4 text-gray-500 hover:text-gray-700 text-sm font-medium">Back</button>
+                    </div>
+                </form>
+
+                <!-- Success Message -->
+                <div class="hidden text-center py-8" id="successMsg">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
+                    <p class="text-gray-600 mb-4">Your details have been received. A solar advisor will contact you shortly.</p>
+                    <p class="text-sm text-gray-500">Reference: <span id="refNumber" class="font-mono font-bold"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
+                <div class="text-2xl font-bold text-emerald-600">50K+</div>
+                <div class="text-xs text-gray-500">Checks Completed</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
+                <div class="text-2xl font-bold text-emerald-600">4.8</div>
+                <div class="text-xs text-gray-500">TrustScore</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
+                <div class="text-2xl font-bold text-emerald-600">100%</div>
+                <div class="text-xs text-gray-500">Free Service</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 text-center shadow-sm border border-gray-100">
+                <div class="text-2xl font-bold text-emerald-600">FCA</div>
+                <div class="text-xs text-gray-500">Registered</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-2xl mx-auto px-4 pb-8 text-center text-sm text-gray-500">
+        <p>FreeSolarCheck is a trading name of FreeSolarCheck Ltd. FCA Registered.</p>
+        <p class="mt-2">By submitting this form, you agree to our privacy policy and terms.</p>
+    </footer>
+
+    <script>
+        var answers = {};
+        var currentStep = 1;
+
+        function updateProgress() {
+            var pct = (currentStep / 4) * 100;
+            document.getElementById('progressFill').style.width = pct + '%';
+            document.getElementById('progressText').textContent = 'Step ' + currentStep + ' of 4';
+        }
+
+        function goToStep(step) {
+            document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+            document.getElementById('step' + step).classList.add('active');
+            currentStep = step;
+            updateProgress();
+        }
+
+        function selectTenure(val) {
+            answers.tenure = val;
+            goToStep(2);
+        }
+
+        function selectProperty(val) {
+            answers.property = val;
+            goToStep(3);
+        }
+
+        function selectBenefits(val) {
+            answers.benefits = val;
+            goToStep(4);
+        }
+
+        function prevStep(step) {
+            goToStep(step);
+        }
+
+        function submitForm(e) {
+            e.preventDefault();
+
+            // Copy wizard answers into hidden form fields
+            document.getElementById('hidden-tenure').value = answers.tenure || '';
+            document.getElementById('hidden-property').value = answers.property || '';
+            document.getElementById('hidden-benefits').value = answers.benefits || '';
+
+            // Build form data and send to Google Apps Script
+            var form = document.getElementById('leadForm');
+            var formData = new FormData(form);
+            var data = {};
+            formData.forEach(function(value, key) { data[key] = value; });
+
+            fetch('https://script.google.com/macros/s/AKfycbyc-RbS4EyZ3s9QaZRn-ZfyV-MBaT6PLhsAVE17XBJ4-_cbyd5nEzPkah_zpgsqWsHSjA/exec', {
+                method: 'POST',
+                body: new URLSearchParams(data)
+            })
+            .then(function(response) { return response.json(); })
+            .then(function(result) {
+                if (result.success) {
+                    document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+                    document.getElementById('progressFill').style.width = '100%';
+                    document.getElementById('successMsg').style.display = 'block';
+                    document.getElementById('successMsg').classList.remove('hidden');
+                    document.getElementById('refNumber').textContent = 'FSC-' + Date.now().toString(36).toUpperCase();
+                    window.scrollTo(0, 0);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+                alert('Submission failed. Please try again.');
+            });
+        }
+    </script>
+
+<script data-os-form-tracking="true">
+(function() {
+  if (window.__osFormTrackingInstalled) return;
+  window.__osFormTrackingInstalled = true;
+
+  document.querySelectorAll("form[data-os-submit-url]").forEach(function(form) {
+    if (form.dataset.osTrackingBound === "true") return;
+    form.dataset.osTrackingBound = "true";
+
     form.addEventListener("submit", function(e) {
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData);
-
-      fetch("https://api.grow.ai/forms/track", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          domain: window.location.hostname,
-          form_data: data,
-          timestamp: new Date().toISOString()
-        })
-      }).catch(err => console.log("Tracking sent"));
-    });
-  });
-});
-</script>
-  <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var form = document.querySelector('form') || document.getElementById('lead-form');
-  
-  if (form) {
-    form.addEventListener('submit', function(e) {
       e.preventDefault();
-      
+      var submitUrl = form.getAttribute("data-os-submit-url");
+      if (!submitUrl) return;
+
       var formData = new FormData(form);
       var data = {};
-      formData.forEach(function(value, key) {
-        data[key] = value;
-      });
-      
-      fetch('https://script.google.com/macros/s/AKfycbyc-RbS4EyZ3s9QaZRn-ZfyV-MBaT6PLhsAVE17XBJ4-_cbyd5nEzPkah_zpgsqWsHSjA/exec', {
-        method: 'POST',
-        body: new URLSearchParams(data)
-      })
-      .then(response => response.json())
-      .then(result => {
-        if (result.success) {
-          alert('Thank you! Your submission has been received.');
-          form.reset();
+      formData.forEach(function(value, key) { data[key] = value; });
+
+      var btn = form.querySelector('[type="submit"]');
+      if (btn) btn.disabled = true;
+
+      fetch(submitUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      }).then(function(resp) {
+        if (resp.ok) {
+          form.innerHTML = '<p style="padding:20px;text-align:center;font-size:18px;">Thank you for your submission!</p>';
         } else {
-          alert('Something went wrong. Please try again.');
+          alert("Submission failed. Please try again.");
+          if (btn) btn.disabled = false;
         }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Submission failed. Please try again.');
+      }).catch(function() {
+        alert("Submission failed. Please try again.");
+        if (btn) btn.disabled = false;
       });
-    });
-  }
-});
+    }, true);
+  });
+})();
 </script>
 </body>
 </html>
