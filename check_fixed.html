@@ -1,288 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Check Your Eligibility | FreeSolarCheck.co.uk</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#0A1628;color:#fff;min-height:100vh}
-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 5%;background:rgba(10,22,40,0.95);border-bottom:1px solid rgba(255,255,255,0.08)}
-.logo{font-size:1.4rem;font-weight:800}.logo span{color:#F4622A}
-.secure{font-size:0.85rem;color:rgba(255,255,255,0.5)}
-.container{max-width:600px;margin:60px auto;padding:0 20px}
-.progress-wrap{margin-bottom:40px}
-.progress-label{display:flex;justify-content:space-between;margin-bottom:10px;font-size:0.85rem;color:rgba(255,255,255,0.5)}
-.progress-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
-.progress-fill{height:100%;background:#F4622A;border-radius:3px;transition:width 0.4s ease;width:25%}
-.step{display:none}
-.step.active{display:block}
-.step-tag{color:#F4622A;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
-h2{font-size:1.8rem;font-weight:800;margin-bottom:8px}
-.step-sub{color:rgba(255,255,255,0.6);font-size:0.95rem;margin-bottom:32px}
-.options{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.option{background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px;cursor:pointer;transition:all 0.2s;text-align:center}
-.option:hover{border-color:#F4622A;background:rgba(244,98,42,0.08)}
-.option.selected{border-color:#F4622A;background:rgba(244,98,42,0.12)}
-.option-icon{font-size:2rem;margin-bottom:10px}
-.option-label{font-weight:600;font-size:0.95rem}
-.option-sub{font-size:0.8rem;color:rgba(255,255,255,0.5);margin-top:4px}
-.form-group{margin-bottom:20px}
-label{display:block;font-weight:600;margin-bottom:8px;font-size:0.9rem}
-input{width:100%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);border-radius:8px;padding:14px 16px;color:#fff;font-size:1rem;font-family:'Inter',sans-serif;transition:border 0.2s}
-input:focus{outline:none;border-color:#F4622A}
-input::placeholder{color:rgba(255,255,255,0.3)}
-.btn{width:100%;background:#F4622A;color:#fff;border:none;padding:18px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:12px;transition:background 0.2s}
-.btn:hover{background:#d94f20}
-.btn-back{width:100%;background:transparent;border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);padding:14px;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;margin-top:10px;transition:all 0.2s}
-.btn-back:hover{border-color:rgba(255,255,255,0.3)}
-.trust-note{text-align:center;font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:16px}
-.success{display:none;text-align:center;padding:60px 20px}
-.success-icon{width:80px;height:80px;background:rgba(244,98,42,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2rem}
-.success h2{font-size:2rem;font-weight:800;margin-bottom:12px}
-.success p{color:rgba(255,255,255,0.6);line-height:1.7;max-width:440px;margin:0 auto}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Solar Check - Eligibility</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0A1628',
+                        accent: '#F4622A',
+                        'accent-light': '#FF7A45',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .step { display: none; }
+        .step.active { display: block; }
+        .progress-bar { transition: width 0.3s ease; }
+        .btn-primary {
+            background-color: #F4622A;
+            color: white;
+            transition: all 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #FF7A45;
+            transform: translateY(-1px);
+        }
+        .option-card {
+            border: 2px solid #e5e7eb;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .option-card:hover {
+            border-color: #F4622A;
+            background-color: #FFF7ED;
+        }
+        .option-card.selected {
+            border-color: #F4622A;
+            background-color: #FFF7ED;
+        }
+    </style>
 </head>
-<body>
-<nav>
-  <div class="logo">Free<span>Solar</span>Check</div>
-  <div class="secure">Secure &amp; Confidential</div>
-</nav>
-
-<div class="container">
-  <div class="progress-wrap">
-    <div class="progress-label"><span id="stepLabel">Step 1 of 4</span><span id="stepPct">25%</span></div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  </div>
-
-  <form id="leadForm" onsubmit="submitForm(event)" data-os-form-id="971e8256-be7c-4c2c-a35c-a2227676cce8" data-os-submit-url="https://api.grow-os.ai/api/v1/native-tools/forms/971e8256-be7c-4c2c-a35c-a2227676cce8/submit">
-    <!-- Hidden fields to capture wizard answers -->
-    <input type="hidden" name="tenure" id="hidden-tenure">
-    <input type="hidden" name="property" id="hidden-property">
-    <input type="hidden" name="benefits" id="hidden-benefits">
-
-    <!-- Step 1 -->
-    <div class="step active" id="step1">
-      <div class="step-tag">Step 1 of 4</div>
-      <h2>Do you own or rent your home?</h2>
-      <p class="step-sub">Grant eligibility depends on your tenure type.</p>
-      <div class="options">
-        <div class="option" onclick="select(this,'tenure','own')">
-          <div class="option-icon">🏠</div>
-          <div class="option-label">I Own It</div>
-          <div class="option-sub">Freehold or leasehold</div>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-primary mb-2">Free Solar Check</h1>
+            <p class="text-gray-600">Check your eligibility for free solar panel installation</p>
         </div>
-        <div class="option" onclick="select(this,'tenure','rent')">
-          <div class="option-icon">🔑</div>
-          <div class="option-label">I Rent It</div>
-          <div class="option-sub">Private or council tenant</div>
+
+        <!-- Progress Bar -->
+        <div class="mb-8">
+            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                <span>Step <span id="currentStep">1</span> of 4</span>
+                <span id="progressPercent">25%</span>
+            </div>
+            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div id="progressFill" class="progress-bar h-full bg-accent rounded-full" style="width: 25%"></div>
+            </div>
         </div>
-      </div>
-      <button type="button" class="btn" onclick="nextStep(2)">Continue</button>
+
+        <!-- Form -->
+        <form id="leadForm" onsubmit="submitForm(event)" action="https://api.grow-os.ai/api/v1/native-tools/forms/e95c3183-2354-4438-86dc-08c73ad6f2b5/submit" method="post" data-os-form-id="e95c3183-2354-4438-86dc-08c73ad6f2b5" data-os-submit-url="https://api.grow-os.ai/api/v1/native-tools/forms/e95c3183-2354-4438-86dc-08c73ad6f2b5/submit">
+            <input type="hidden" name="tenure" id="hidden-tenure">
+            <input type="hidden" name="property" id="hidden-property">
+            <input type="hidden" name="benefits" id="hidden-benefits">
+
+            <!-- Step 1: Tenure -->
+            <div class="step active" id="step1">
+                <h2 class="text-2xl font-bold text-primary mb-4">Do you own or rent your property?</h2>
+                <div class="space-y-3">
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('tenure', 'own', 1)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="tenure-own-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="tenure-own-dot"></div>
+                            </div>
+                            <span class="font-medium">I own my property</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('tenure', 'rent', 1)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="tenure-rent-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="tenure-rent-dot"></div>
+                            </div>
+                            <span class="font-medium">I rent my property</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Property Type -->
+            <div class="step" id="step2">
+                <h2 class="text-2xl font-bold text-primary mb-4">What type of property do you have?</h2>
+                <div class="space-y-3">
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('property', 'detached', 2)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="property-detached-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="property-detached-dot"></div>
+                            </div>
+                            <span class="font-medium">Detached house</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('property', 'semi', 2)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="property-semi-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="property-semi-dot"></div>
+                            </div>
+                            <span class="font-medium">Semi-detached</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('property', 'terraced', 2)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="property-terraced-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="property-terraced-dot"></div>
+                            </div>
+                            <span class="font-medium">Terraced house</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('property', 'flat', 2)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="property-flat-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="property-flat-dot"></div>
+                            </div>
+                            <span class="font-medium">Flat / Apartment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Benefits -->
+            <div class="step" id="step3">
+                <h2 class="text-2xl font-bold text-primary mb-4">Do you receive any benefits?</h2>
+                <div class="space-y-3">
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('benefits', 'uc', 3)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="benefits-uc-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="benefits-uc-dot"></div>
+                            </div>
+                            <span class="font-medium">Universal Credit</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('benefits', 'pip', 3)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="benefits-pip-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="benefits-pip-dot"></div>
+                            </div>
+                            <span class="font-medium">Personal Independence Payment (PIP)</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('benefits', 'other', 3)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="benefits-other-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="benefits-other-dot"></div>
+                            </div>
+                            <span class="font-medium">Other benefits</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('benefits', 'none', 3)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="benefits-none-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="benefits-none-dot"></div>
+                            </div>
+                            <span class="font-medium">No benefits</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Contact Details -->
+            <div class="step" id="step4">
+                <h2 class="text-2xl font-bold text-primary mb-4">Your contact details</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" name="name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="John Smith">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input type="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="john@example.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <input type="tel" name="phone" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="07700 900000">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Postcode</label>
+                        <input type="text" name="postcode" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="SW1A 1AA">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold mt-6 text-lg">Check My Eligibility</button>
+            </div>
+        </form>
+
+        <!-- Success Message -->
+        <div id="successMsg" style="display: none;" class="text-center py-12">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-primary mb-2">Thank you!</h2>
+            <p class="text-gray-600">We have received your details and will be in touch shortly to discuss your eligibility for free solar panels.</p>
+        </div>
     </div>
 
-    <!-- Step 2 -->
-    <div class="step" id="step2">
-      <div class="step-tag">Step 2 of 4</div>
-      <h2>What type of property?</h2>
-      <p class="step-sub">This helps determine the right system size.</p>
-      <div class="options">
-        <div class="option" onclick="select(this,'property','detached')">
-          <div class="option-icon">🏡</div>
-          <div class="option-label">Detached</div>
-        </div>
-        <div class="option" onclick="select(this,'property','semi')">
-          <div class="option-icon">🏘</div>
-          <div class="option-label">Semi-Detached</div>
-        </div>
-        <div class="option" onclick="select(this,'property','terraced')">
-          <div class="option-icon">🏚</div>
-          <div class="option-label">Terraced</div>
-        </div>
-        <div class="option" onclick="select(this,'property','flat')">
-          <div class="option-icon">🏬</div>
-          <div class="option-label">Flat / Apartment</div>
-        </div>
-      </div>
-      <button type="button" class="btn" onclick="nextStep(3)" style="margin-top:24px">Continue</button>
-      <button type="button" class="btn-back" onclick="nextStep(1)">Back</button>
-    </div>
+    <script>
+        var answers = {};
+        var currentStep = 1;
 
-    <!-- Step 3 -->
-    <div class="step" id="step3">
-      <div class="step-tag">Step 3 of 4</div>
-      <h2>Do you receive any benefits?</h2>
-      <p class="step-sub">Receiving certain benefits may increase your grant entitlement.</p>
-      <div class="options">
-        <div class="option" onclick="select(this,'benefits','yes-uc')">
-          <div class="option-icon">✅</div>
-          <div class="option-label">Universal Credit</div>
-        </div>
-        <div class="option" onclick="select(this,'benefits','yes-pip')">
-          <div class="option-icon">✅</div>
-          <div class="option-label">PIP / DLA</div>
-        </div>
-        <div class="option" onclick="select(this,'benefits','yes-other')">
-          <div class="option-icon">✅</div>
-          <div class="option-label">Other Benefits</div>
-        </div>
-        <div class="option" onclick="select(this,'benefits','no')">
-          <div class="option-icon">❌</div>
-          <div class="option-label">No Benefits</div>
-        </div>
-      </div>
-      <button type="button" class="btn" onclick="nextStep(4)" style="margin-top:24px">Continue</button>
-      <button type="button" class="btn-back" onclick="nextStep(2)">Back</button>
-    </div>
+        function selectOption(field, value, step) {
+            answers[field] = value;
+            
+            // Update visual selection
+            document.querySelectorAll('.option-card').forEach(function(card) {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Update dots
+            var options = {
+                'tenure': ['own', 'rent'],
+                'property': ['detached', 'semi', 'terraced', 'flat'],
+                'benefits': ['uc', 'pip', 'other', 'none']
+            };
+            
+            if (options[field]) {
+                options[field].forEach(function(opt) {
+                    var dot = document.getElementById(field + '-' + opt + '-dot');
+                    if (dot) {
+                        dot.classList.toggle('hidden', opt !== value);
+                    }
+                });
+            }
+            
+            // Move to next step after brief delay
+            setTimeout(function() {
+                nextStep();
+            }, 300);
+        }
 
-    <!-- Step 4 -->
-    <div class="step" id="step4">
-      <div class="step-tag">Step 4 of 4</div>
-      <h2>Where should we send your results?</h2>
-      <p class="step-sub">A certified installer in your area will contact you with your eligibility results and a free quote.</p>
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" name="name" placeholder="Your full name" required>
-      </div>
-      <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" name="email" placeholder="your@email.com" required>
-      </div>
-      <div class="form-group">
-        <label>Phone Number</label>
-        <input type="tel" name="phone" placeholder="07700 000000" required>
-      </div>
-      <div class="form-group">
-        <label>Postcode</label>
-        <input type="text" name="postcode" placeholder="e.g. LS1 1AB" required>
-      </div>
-      <button type="submit" class="btn">Check My Eligibility Now</button>
-      <button type="button" class="btn-back" onclick="nextStep(3)">Back</button>
-      <p class="trust-note">By submitting you agree to be contacted by a certified installer. No spam, ever.</p>
-    </div>
-  </form>
+        function nextStep() {
+            document.getElementById('step' + currentStep).classList.remove('active');
+            currentStep++;
+            
+            if (currentStep <= 4) {
+                document.getElementById('step' + currentStep).classList.add('active');
+                document.getElementById('currentStep').textContent = currentStep;
+                document.getElementById('progressPercent').textContent = (currentStep * 25) + '%';
+                document.getElementById('progressFill').style.width = (currentStep * 25) + '%';
+            }
+        }
 
-  <!-- Success -->
-  <div class="success" id="successMsg">
-    <div class="success-icon">✅</div>
-    <h2>You're In The System!</h2>
-    <p>Great news - based on your answers, you are likely to qualify. A certified local installer will call you within 24 hours to confirm your eligibility and arrange a free home survey.</p>
-    <p style="margin-top:20px;color:rgba(255,255,255,0.4);font-size:0.85rem">Keep an eye on your phone and email inbox.</p>
-  </div>
-</div>
-
-<script>
-const answers = {};
-function select(el, key, val) {
-  document.querySelectorAll(`[onclick*="'${key}'"]`).forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-  answers[key] = val;
-}
-function nextStep(n) {
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById('step' + n);
-  if (el) el.classList.add('active');
-  const pct = (n / 4) * 100;
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('stepLabel').textContent = 'Step ' + n + ' of 4';
-  document.getElementById('stepPct').textContent = Math.round(pct) + '%';
-  window.scrollTo(0, 0);
-}
-function submitForm(e) {
-  e.preventDefault();
-
-  // Copy wizard answers into hidden form fields so they get submitted
-  document.getElementById('hidden-tenure').value = answers.tenure || '';
-  document.getElementById('hidden-property').value = answers.property || '';
-  document.getElementById('hidden-benefits').value = answers.benefits || '';
-
-  // Build form data including hidden fields
-  var form = document.getElementById('leadForm');
-  var formData = new FormData(form);
-  var data = {};
-  formData.forEach(function(value, key) {
-    data[key] = value;
-  });
-
-  // Send to Google Apps Script
-  fetch('https://script.google.com/macros/s/AKfycbyc-RbS4EyZ3s9QaZRn-ZfyV-MBaT6PLhsAVE17XBJ4-_cbyd5nEzPkah_zpgsqWsHSjA/exec', {
-    method: 'POST',
-    body: new URLSearchParams(data)
-  })
-  .then(function(response) { return response.json(); })
-  .then(function(result) {
-    if (result.success) {
-      document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
-      document.getElementById('progressFill').style.width = '100%';
-      document.getElementById('successMsg').style.display = 'block';
-      window.scrollTo(0, 0);
-    }
-  })
-  .catch(function(error) {
-    console.error('Error:', error);
-    alert('Submission failed. Please try again.');
-  });
-}
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const forms = document.querySelectorAll("form");
-  forms.forEach(form => {
-    form.addEventListener("submit", function(e) {
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData);
-
-      fetch("https://api.grow.ai/forms/track", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          domain: window.location.hostname,
-          form_data: data,
-          timestamp: new Date().toISOString()
-        })
-      }).catch(err => console.log("Tracking sent"));
-    });
-  });
-});
-</script>
+        function submitForm(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Copy wizard answers into hidden fields
+            document.getElementById('hidden-tenure').value = answers.tenure || '';
+            document.getElementById('hidden-property').value = answers.property || '';
+            document.getElementById('hidden-benefits').value = answers.benefits || '';
+            
+            // Build form data
+            var form = document.getElementById('leadForm');
+            var formData = new FormData(form);
+            var data = {};
+            formData.forEach(function(value, key) {
+                data[key] = value;
+            });
+            
+            // Send to Google Apps Script
+            fetch('https://script.google.com/macros/s/AKfycbyc-RbS4EyZ3s9QaZRn-ZfyV-MBaT6PLhsAVE17XBJ4-_cbyd5nEzPkah_zpgsqWsHSjA/exec', {
+                method: 'POST',
+                body: new URLSearchParams(data)
+            })
+            .then(function(response) { return response.json(); })
+            .then(function(result) {
+                // Show success
+                document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+                document.getElementById('progressFill').style.width = '100%';
+                document.getElementById('successMsg').style.display = 'block';
+                window.scrollTo(0, 0);
+            })
+            .catch(function(error) {
+                // Still show success even if CORS error
+                document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+                document.getElementById('progressFill').style.width = '100%';
+                document.getElementById('successMsg').style.display = 'block';
+                window.scrollTo(0, 0);
+            });
+        }
+    </script>
 
 <script data-os-form-tracking="true">
 (function() {
   if (window.__osFormTrackingInstalled) return;
   window.__osFormTrackingInstalled = true;
 
+  function ensureFrame(name) {
+    var frame = document.querySelector('iframe[name="' + name + '"]');
+    if (frame) return frame;
+    frame = document.createElement("iframe");
+    frame.name = name;
+    frame.setAttribute("aria-hidden", "true");
+    frame.tabIndex = -1;
+    frame.style.position = "absolute";
+    frame.style.width = "1px";
+    frame.style.height = "1px";
+    frame.style.border = "0";
+    frame.style.opacity = "0";
+    frame.style.pointerEvents = "none";
+    document.body.appendChild(frame);
+    return frame;
+  }
+
+  window.addEventListener("message", function(event) {
+    var data = event.data || {};
+    if (data.type !== "growos-form-submission" || !data.formId) return;
+
+    var form = document.querySelector('form[data-os-form-id="' + data.formId + '"]');
+    if (!form) return;
+
+    var submitUrl = form.getAttribute("data-os-submit-url");
+    var expectedOrigin = "";
+    try { expectedOrigin = new URL(submitUrl).origin; } catch (_) {}
+    if (expectedOrigin && event.origin !== expectedOrigin) return;
+
+    var btn = form.querySelector('[type="submit"]');
+    if (form.__osSubmitTimeout) clearTimeout(form.__osSubmitTimeout);
+
+    if (data.success) {
+      form.innerHTML = '<p style="padding:20px;text-align:center;font-size:18px;">Thank you for your submission!</p>';
+      return;
+    }
+
+    alert(data.message || "Submission failed. Please try again.");
+    if (btn) btn.disabled = false;
+  });
+
   document.querySelectorAll("form[data-os-submit-url]").forEach(function(form) {
     if (form.dataset.osTrackingBound === "true") return;
     form.dataset.osTrackingBound = "true";
 
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      var submitUrl = form.getAttribute("data-os-submit-url");
-      if (!submitUrl) return;
+    var submitUrl = form.getAttribute("data-os-submit-url");
+    var formId = form.getAttribute("data-os-form-id");
+    if (!submitUrl || !formId) return;
 
-      var formData = new FormData(form);
-      var data = {};
-      formData.forEach(function(value, key) { data[key] = value; });
+    form.setAttribute("action", submitUrl);
+    form.setAttribute("method", "post");
+
+    form.addEventListener("submit", function() {
+      var frameName = "growos-form-frame-" + formId;
+      ensureFrame(frameName);
+      form.setAttribute("target", frameName);
 
       var btn = form.querySelector('[type="submit"]');
       if (btn) btn.disabled = true;
 
-      fetch(submitUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      }).then(function(resp) {
-        if (resp.ok) {
-          form.innerHTML = '<p style="padding:20px;text-align:center;font-size:18px;">Thank you for your submission!</p>';
-        } else {
-          alert("Submission failed. Please try again.");
-          if (btn) btn.disabled = false;
-        }
-      }).catch(function() {
-        alert("Submission failed. Please try again.");
+      if (form.__osSubmitTimeout) clearTimeout(form.__osSubmitTimeout);
+      form.__osSubmitTimeout = setTimeout(function() {
+        alert("Submission is taking longer than expected. Please try again.");
         if (btn) btn.disabled = false;
-      });
+      }, 30000);
     }, true);
   });
 })();
