@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Free Solar Check</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0A1628',
+                        accent: '#F4622A',
+                        'accent-light': '#FF7A45',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .btn-primary {
+            background-color: #F4622A;
+            color: white;
+            transition: all 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #FF7A45;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-primary text-white py-4 px-6">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold">Free Solar Check</a>
+            <div class="flex gap-6">
+                <a href="index.html" class="hover:text-accent transition">Home</a>
+                <a href="check.html" class="hover:text-accent transition">Check Eligibility</a>
+                <a href="careers.html" class="text-accent font-semibold">Careers</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-primary text-white py-16 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Join Our Team</h1>
+            <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                Help homeowners across the UK discover the benefits of solar energy. We are growing fast and looking for passionate people to join us.
+            </p>
+        </div>
+    </section>
+
+    <!-- Why Join Us -->
+    <section class="py-12 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-primary mb-8 text-center">Why Work With Us</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-primary mb-2">Make an Impact</h3>
+                    <p class="text-gray-600 text-sm">Help families reduce energy bills and carbon footprints with solar solutions.</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-primary mb-2">Growing Company</h3>
+                    <p class="text-gray-600 text-sm">Be part of a rapidly expanding solar assessment business with real career progression.</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-primary mb-2">Great Team</h3>
+                    <p class="text-gray-600 text-sm">Work alongside knowledgeable, supportive colleagues who share your passion for clean energy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Positions -->
+    <section class="py-12 px-6 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-primary mb-8 text-center">Open Positions</h2>
+            <div id="growhire-jobs-mount"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-8 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-gray-400 text-sm"> Free Solar Check. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Grow Talent Widget -->
+    <script async src="https://widgets.grow-talent.ai/v1/embed.js"
+      data-token="wgt_3f44a44fd4d0192bfc6300224d3a8770"
+      data-type="jobs"
+      data-theme="light"
+      data-primary-color="#4F46E5"
+      data-api-url="https://api.grow-talent.ai"
+      data-app-url="https://widgets.grow-talent.ai"
+      data-container="growhire-jobs-mount">
+    </script>
+</body>
+</html>
