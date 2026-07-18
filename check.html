@@ -49,6 +49,30 @@
             border-color: #F4622A;
             background-color: #FFF7ED;
         }
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #e5e7eb;
+            outline: none;
+        }
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #F4622A;
+            cursor: pointer;
+        }
+        .range-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #F4622A;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -62,19 +86,21 @@
         <!-- Progress Bar -->
         <div class="mb-8">
             <div class="flex justify-between text-sm text-gray-500 mb-2">
-                <span>Step <span id="currentStep">1</span> of 4</span>
-                <span id="progressPercent">25%</span>
+                <span>Step <span id="currentStep">1</span> of 6</span>
+                <span id="progressPercent">17%</span>
             </div>
             <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div id="progressFill" class="progress-bar h-full bg-accent rounded-full" style="width: 25%"></div>
+                <div id="progressFill" class="progress-bar h-full bg-accent rounded-full" style="width: 17%"></div>
             </div>
         </div>
 
         <!-- Form -->
-        <form id="leadForm" onsubmit="submitForm(event)" action="https://api.grow-os.ai/api/v1/native-tools/forms/2c57572a-10cf-4063-8aa5-8f22f18a4261/submit" method="post" data-os-form-id="2c57572a-10cf-4063-8aa5-8f22f18a4261" data-os-submit-url="https://api.grow-os.ai/api/v1/native-tools/forms/2c57572a-10cf-4063-8aa5-8f22f18a4261/submit">
+        <form id="leadForm" onsubmit="submitForm(event)" action="https://api.grow-os.ai/api/v1/native-tools/forms/c5e527fa-c5a0-4708-ae4c-a3e547c8a8b3/submit" method="post" data-os-form-id="c5e527fa-c5a0-4708-ae4c-a3e547c8a8b3" data-os-submit-url="https://api.grow-os.ai/api/v1/native-tools/forms/c5e527fa-c5a0-4708-ae4c-a3e547c8a8b3/submit">
             <input type="hidden" name="tenure" id="hidden-tenure">
             <input type="hidden" name="property" id="hidden-property">
             <input type="hidden" name="benefits" id="hidden-benefits">
+            <input type="hidden" name="bill" id="hidden-bill">
+            <input type="hidden" name="orientation" id="hidden-orientation">
 
             <!-- Step 1: Tenure -->
             <div class="step active" id="step1">
@@ -101,7 +127,7 @@
 
             <!-- Step 2: Property Type -->
             <div class="step" id="step2">
-                <h2 class="text-2xl font-bold text-primary mb-4">What type of property do you have?</h2>
+                <h2 class="text-2xl font-bold text-primary mb-4">What type of property do you live in?</h2>
                 <div class="space-y-3">
                     <div class="option-card p-4 rounded-lg" onclick="selectOption('property', 'detached', 2)">
                         <div class="flex items-center">
@@ -135,12 +161,21 @@
                             <span class="font-medium">Flat / Apartment</span>
                         </div>
                     </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('property', 'bungalow', 2)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="property-bungalow-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="property-bungalow-dot"></div>
+                            </div>
+                            <span class="font-medium">Bungalow</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Step 3: Benefits -->
             <div class="step" id="step3">
                 <h2 class="text-2xl font-bold text-primary mb-4">Do you receive any benefits?</h2>
+                <p class="text-gray-600 mb-4">This helps us check eligibility for government grants.</p>
                 <div class="space-y-3">
                     <div class="option-card p-4 rounded-lg" onclick="selectOption('benefits', 'uc', 3)">
                         <div class="flex items-center">
@@ -177,127 +212,264 @@
                 </div>
             </div>
 
-            <!-- Step 4: Contact Details -->
+            <!-- Step 4: Monthly Bill -->
             <div class="step" id="step4">
-                <h2 class="text-2xl font-bold text-primary mb-4">Your contact details</h2>
+                <h2 class="text-2xl font-bold text-primary mb-2">What is your average monthly electricity bill?</h2>
+                <p class="text-gray-600 mb-6">This helps us calculate potential savings.</p>
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <div class="text-center mb-4">
+                        <span class="text-4xl font-bold text-accent" id="billDisplay">£100</span>
+                        <span class="text-gray-500">/month</span>
+                    </div>
+                    <input type="range" min="30" max="400" value="100" step="10" class="range-slider mb-4" id="billSlider" oninput="updateBillDisplay(this.value)">
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>£30</span>
+                        <span>£400+</span>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <button type="button" class="btn-primary px-8 py-3 rounded-lg font-semibold" onclick="confirmBill()">
+                        Continue
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 5: Roof Orientation -->
+            <div class="step" id="step5">
+                <h2 class="text-2xl font-bold text-primary mb-4">Which direction does your roof face?</h2>
+                <p class="text-gray-600 mb-4">South-facing roofs generate the most solar energy.</p>
+                <div class="space-y-3">
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('orientation', 'south', 5)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="orientation-south-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="orientation-south-dot"></div>
+                            </div>
+                            <span class="font-medium">South</span>
+                            <span class="ml-auto text-sm text-green-600 font-medium">Best</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('orientation', 'southeast', 5)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="orientation-southeast-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="orientation-southeast-dot"></div>
+                            </div>
+                            <span class="font-medium">South East</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('orientation', 'southwest', 5)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="orientation-southwest-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="orientation-southwest-dot"></div>
+                            </div>
+                            <span class="font-medium">South West</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('orientation', 'east', 5)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="orientation-east-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="orientation-east-dot"></div>
+                            </div>
+                            <span class="font-medium">East</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('orientation', 'west', 5)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="orientation-west-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="orientation-west-dot"></div>
+                            </div>
+                            <span class="font-medium">West</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('orientation', 'north', 5)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="orientation-north-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="orientation-north-dot"></div>
+                            </div>
+                            <span class="font-medium">North</span>
+                            <span class="ml-auto text-sm text-orange-600 font-medium">Lowest output</span>
+                        </div>
+                    </div>
+                    <div class="option-card p-4 rounded-lg" onclick="selectOption('orientation', 'dontknow', 5)">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center" id="orientation-dontknow-indicator">
+                                <div class="w-2.5 h-2.5 rounded-full bg-accent hidden" id="orientation-dontknow-dot"></div>
+                            </div>
+                            <span class="font-medium">Not sure</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Contact Details -->
+            <div class="step" id="step6">
+                <h2 class="text-2xl font-bold text-primary mb-4">Your Contact Details</h2>
+                <p class="text-gray-600 mb-6">We'll send your eligibility results and next steps.</p>
+
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                        <input type="text" name="name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="John Smith">
+                        <input type="text" name="name" id="name" required
+                            class="w-full p-3 rounded-lg border border-gray-200 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                            placeholder="John Smith">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                        <input type="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="john@example.com">
+                        <input type="email" name="email" id="email" required
+                            class="w-full p-3 rounded-lg border border-gray-200 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                            placeholder="john@example.com">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                        <input type="tel" name="phone" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="07700 900000">
+                        <input type="tel" name="phone" id="phone" required
+                            class="w-full p-3 rounded-lg border border-gray-200 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                            placeholder="07123 456789">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Postcode</label>
-                        <input type="text" name="postcode" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="SW1A 1AA">
+                        <input type="text" name="postcode" id="postcode" required
+                            class="w-full p-3 rounded-lg border border-gray-200 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                            placeholder="SW1A 1AA">
                     </div>
                 </div>
-                <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold mt-6 text-lg">Check My Eligibility</button>
+
+                <div class="mt-6">
+                    <button type="submit" class="btn-primary w-full py-4 rounded-lg font-bold text-lg">
+                        Check My Eligibility
+                    </button>
+                </div>
             </div>
         </form>
 
+        <!-- Navigation Buttons -->
+        <div class="mt-6 flex justify-between" id="navButtons">
+            <button type="button" class="text-gray-500 hover:text-gray-700 font-medium hidden" id="backButton" onclick="prevStep()">
+                Back
+            </button>
+            <div></div>
+        </div>
+
         <!-- Success Message -->
-        <div id="successMsg" style="display: none;" class="text-center py-12">
-            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-            </div>
-            <h2 class="text-2xl font-bold text-primary mb-2">Thank you!</h2>
-            <p class="text-gray-600">We have received your details and will be in touch shortly to discuss your eligibility for free solar panels.</p>
+        <div id="successMessage" class="hidden text-center py-12">
+            <div class="text-6xl mb-4">✅</div>
+            <h2 class="text-2xl font-bold text-primary mb-2">Thank You!</h2>
+            <p class="text-gray-600 mb-4">Your details have been submitted successfully.</p>
+            <p class="text-gray-500 text-sm">We'll be in touch within 24 hours with your eligibility results.</p>
         </div>
     </div>
 
     <script>
-        var answers = {};
-        var currentStep = 1;
+        let currentStep = 1;
+        const totalSteps = 6;
+        let answers = {};
 
-        function selectOption(field, value, step) {
-            answers[field] = value;
-            
-            // Update visual selection
-            document.querySelectorAll('.option-card').forEach(function(card) {
-                card.classList.remove('selected');
-            });
-            event.currentTarget.classList.add('selected');
-            
-            // Update dots
-            var options = {
-                'tenure': ['own', 'rent'],
-                'property': ['detached', 'semi', 'terraced', 'flat'],
-                'benefits': ['uc', 'pip', 'other', 'none']
-            };
-            
-            if (options[field]) {
-                options[field].forEach(function(opt) {
-                    var dot = document.getElementById(field + '-' + opt + '-dot');
-                    if (dot) {
-                        dot.classList.toggle('hidden', opt !== value);
-                    }
-                });
+        function updateProgress() {
+            const percent = Math.round((currentStep / totalSteps) * 100);
+            document.getElementById('currentStep').textContent = currentStep;
+            document.getElementById('progressPercent').textContent = percent + '%';
+            document.getElementById('progressFill').style.width = percent + '%';
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+            currentStep = step;
+            updateProgress();
+
+            if (step === 1) {
+                document.getElementById('backButton').classList.add('hidden');
+            } else {
+                document.getElementById('backButton').classList.remove('hidden');
             }
-            
-            // Move to next step after brief delay
-            setTimeout(function() {
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                showStep(currentStep + 1);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                showStep(currentStep - 1);
+            }
+        }
+
+        function selectOption(field, value, stepNum) {
+            // Clear previous selection
+            document.querySelectorAll('[id^="' + field + '-"][id$="-indicator"]').forEach(el => {
+                el.classList.remove('border-accent');
+                el.classList.add('border-gray-300');
+            });
+            document.querySelectorAll('[id^="' + field + '-"][id$="-dot"]').forEach(el => {
+                el.classList.add('hidden');
+            });
+            document.querySelectorAll('[onclick*="' + field + '"]').forEach(el => {
+                el.classList.remove('selected');
+            });
+
+            // Set new selection
+            document.getElementById(field + '-' + value + '-indicator').classList.remove('border-gray-300');
+            document.getElementById(field + '-' + value + '-indicator').classList.add('border-accent');
+            document.getElementById(field + '-' + value + '-dot').classList.remove('hidden');
+            event.currentTarget.classList.add('selected');
+
+            answers[field] = value;
+
+            // Auto-advance after short delay
+            setTimeout(() => {
                 nextStep();
             }, 300);
         }
 
-        function nextStep() {
-            document.getElementById('step' + currentStep).classList.remove('active');
-            currentStep++;
-            
-            if (currentStep <= 4) {
-                document.getElementById('step' + currentStep).classList.add('active');
-                document.getElementById('currentStep').textContent = currentStep;
-                document.getElementById('progressPercent').textContent = (currentStep * 25) + '%';
-                document.getElementById('progressFill').style.width = (currentStep * 25) + '%';
-            }
+        function updateBillDisplay(value) {
+            document.getElementById('billDisplay').textContent = '£' + value;
         }
 
-        function submitForm(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Copy wizard answers into hidden fields
-            document.getElementById('hidden-tenure').value = answers.tenure || '';
-            document.getElementById('hidden-property').value = answers.property || '';
-            document.getElementById('hidden-benefits').value = answers.benefits || '';
-            
-            // Build form data
-            var form = document.getElementById('leadForm');
-            var formData = new FormData(form);
-            var data = {};
-            formData.forEach(function(value, key) {
+        function confirmBill() {
+            const value = document.getElementById('billSlider').value;
+            answers['bill'] = value;
+            document.getElementById('hidden-bill').value = value;
+            nextStep();
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            // Copy wizard answers to hidden fields
+            if (answers.tenure) document.getElementById('hidden-tenure').value = answers.tenure;
+            if (answers.property) document.getElementById('hidden-property').value = answers.property;
+            if (answers.benefits) document.getElementById('hidden-benefits').value = answers.benefits;
+            if (answers.bill) document.getElementById('hidden-bill').value = answers.bill;
+            if (answers.orientation) document.getElementById('hidden-orientation').value = answers.orientation;
+
+            const formData = new FormData(event.target);
+            const data = {};
+            formData.forEach((value, key) => {
                 data[key] = value;
             });
-            
-            // Send to Google Apps Script
+
+            console.log('Submitting form data:', data);
+
             fetch('https://script.google.com/macros/s/AKfycbynb28S0wcYmFgmsiV8mTlf1HoKILZtAQeu3OqLCUP-yWJM3QVIs9RzxZHM5MeYVNaK9A/exec', {
                 method: 'POST',
-                body: new URLSearchParams(data)
+                body: new URLSearchParams(data),
+                mode: 'no-cors'
             })
-            .then(function(response) { return response.json(); })
-            .then(function(result) {
-                // Show success
-                document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
-                document.getElementById('progressFill').style.width = '100%';
-                document.getElementById('successMsg').style.display = 'block';
-                window.scrollTo(0, 0);
+            .then(() => {
+                document.getElementById('leadForm').style.display = 'none';
+                document.getElementById('navButtons').style.display = 'none';
+                document.getElementById('progressFill').parentElement.parentElement.style.display = 'none';
+                document.getElementById('successMessage').classList.remove('hidden');
             })
-            .catch(function(error) {
-                // Still show success even if CORS error
-                document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
-                document.getElementById('progressFill').style.width = '100%';
-                document.getElementById('successMsg').style.display = 'block';
-                window.scrollTo(0, 0);
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('leadForm').style.display = 'none';
+                document.getElementById('navButtons').style.display = 'none';
+                document.getElementById('progressFill').parentElement.parentElement.style.display = 'none';
+                document.getElementById('successMessage').classList.remove('hidden');
             });
+
+            return false;
         }
     </script>
 
