@@ -71,7 +71,7 @@
         </div>
 
         <!-- Form -->
-        <form id="leadForm" onsubmit="submitForm(event)" action="https://api.grow-os.ai/api/v1/native-tools/forms/1e46282d-a396-4f38-b66d-ebf757915a8d/submit" method="post" data-os-form-id="1e46282d-a396-4f38-b66d-ebf757915a8d" data-os-submit-url="https://api.grow-os.ai/api/v1/native-tools/forms/1e46282d-a396-4f38-b66d-ebf757915a8d/submit">
+        <form id="leadForm" onsubmit="submitForm(event)">
             <input type="hidden" name="tenure" id="hidden-tenure">
             <input type="hidden" name="property" id="hidden-property">
             <input type="hidden" name="benefits" id="hidden-benefits">
@@ -300,80 +300,5 @@
             });
         }
     </script>
-
-<script data-os-form-tracking="true">
-(function() {
-  if (window.__osFormTrackingInstalled) return;
-  window.__osFormTrackingInstalled = true;
-
-  function ensureFrame(name) {
-    var frame = document.querySelector('iframe[name="' + name + '"]');
-    if (frame) return frame;
-    frame = document.createElement("iframe");
-    frame.name = name;
-    frame.setAttribute("aria-hidden", "true");
-    frame.tabIndex = -1;
-    frame.style.position = "absolute";
-    frame.style.width = "1px";
-    frame.style.height = "1px";
-    frame.style.border = "0";
-    frame.style.opacity = "0";
-    frame.style.pointerEvents = "none";
-    document.body.appendChild(frame);
-    return frame;
-  }
-
-  window.addEventListener("message", function(event) {
-    var data = event.data || {};
-    if (data.type !== "growos-form-submission" || !data.formId) return;
-
-    var form = document.querySelector('form[data-os-form-id="' + data.formId + '"]');
-    if (!form) return;
-
-    var submitUrl = form.getAttribute("data-os-submit-url");
-    var expectedOrigin = "";
-    try { expectedOrigin = new URL(submitUrl).origin; } catch (_) {}
-    if (expectedOrigin && event.origin !== expectedOrigin) return;
-
-    var btn = form.querySelector('[type="submit"]');
-    if (form.__osSubmitTimeout) clearTimeout(form.__osSubmitTimeout);
-
-    if (data.success) {
-      form.innerHTML = '<p style="padding:20px;text-align:center;font-size:18px;">Thank you for your submission!</p>';
-      return;
-    }
-
-    alert(data.message || "Submission failed. Please try again.");
-    if (btn) btn.disabled = false;
-  });
-
-  document.querySelectorAll("form[data-os-submit-url]").forEach(function(form) {
-    if (form.dataset.osTrackingBound === "true") return;
-    form.dataset.osTrackingBound = "true";
-
-    var submitUrl = form.getAttribute("data-os-submit-url");
-    var formId = form.getAttribute("data-os-form-id");
-    if (!submitUrl || !formId) return;
-
-    form.setAttribute("action", submitUrl);
-    form.setAttribute("method", "post");
-
-    form.addEventListener("submit", function() {
-      var frameName = "growos-form-frame-" + formId;
-      ensureFrame(frameName);
-      form.setAttribute("target", frameName);
-
-      var btn = form.querySelector('[type="submit"]');
-      if (btn) btn.disabled = true;
-
-      if (form.__osSubmitTimeout) clearTimeout(form.__osSubmitTimeout);
-      form.__osSubmitTimeout = setTimeout(function() {
-        alert("Submission is taking longer than expected. Please try again.");
-        if (btn) btn.disabled = false;
-      }, 30000);
-    }, true);
-  });
-})();
-</script>
 </body>
 </html>
